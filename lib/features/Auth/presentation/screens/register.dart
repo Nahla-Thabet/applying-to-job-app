@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mega_trust_project/core/const/icons.dart';
 import 'package:mega_trust_project/features/Auth/presentation/bloc/register/register_cubit.dart';
 import 'package:mega_trust_project/features/Auth/presentation/screens/LoginScreen.dart';
+import 'package:mega_trust_project/features/Auth/presentation/widgets/curved_widget.dart';
 import 'package:mega_trust_project/features/Auth/presentation/widgets/widgets.dart';
 import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/jobs_list_screen.dart';
 import '../../../../core/const/icons.dart';
@@ -18,11 +19,14 @@ class RegisterScreen extends StatelessWidget {
 
   RegisterScreen({Key? key}) : super(key: key);
 
+   bool isSecure = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) => getIt<RegisterCubit>(),
         child: Builder(builder: (BuildContext context) {
+          var cubit = RegisterCubit.get(context) ;
           return BlocListener<RegisterCubit, RegisterState>(
             listener: (BuildContext context, state) {
               state.map(
@@ -37,30 +41,43 @@ class RegisterScreen extends StatelessWidget {
                         SnackBar(content: Text('error  in Registeration')));
                   });
             },
-            child: Scaffold(
+
+
+            child:Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
-                backgroundColor: Colors.white,
                 elevation: 0,
               ),
-              body: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Center(
+              body:SingleChildScrollView(
+              child:Column(
+                children: [
+              CurvedWidget(
+              child: Container(
+              // child: Image.asset('job image.jpg'),
+              width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color:  Colors.deepOrange,
+                ),
+              ),
+            ),
+            Text(
+              'Sign Up',
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.deepOrange,
+              ),),
+                 Container(
+                   margin: EdgeInsets.only(left: 15, right: 15),
                   child: SingleChildScrollView(
                     child: Form(
+
                       key: _formKey,
+
                       child: Column(
                         children: [
-                          const Text(
-                            'Register',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange,
-                            ),
-                          ),
                           const SizedBox(
-                            height: 25,
+                            height: 10,
                           ),
                           defaultFormField(
                             controller: nameController,
@@ -101,6 +118,7 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               prefixIcon: lockPassword,
+
                               label: 'Password'),
                           const SizedBox(
                             height: 15,
@@ -115,7 +133,7 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               prefixIcon: lockPassword,
-                              label: 'ConfirmationPassword'),
+                              label: 'Confirmation Password'),
                           const SizedBox(
                             height: 25,
                           ),
@@ -137,7 +155,11 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           TextButton(onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen())),
-                              child: const Text('Already have an account? Login')),
+                              child: const Text('Already have an account? Login',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),)
+                          ),
                           BlocBuilder<RegisterCubit, RegisterState>(
                               builder: (BuildContext context, state) {
                             return state.maybeMap(
@@ -152,7 +174,11 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+            ]
               ),
+            ),
+
             ),
           );
         }));

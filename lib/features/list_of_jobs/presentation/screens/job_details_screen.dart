@@ -25,13 +25,19 @@ class JobDetails extends StatelessWidget {
 
             return Scaffold(
                 appBar: AppBar(
-                  title:  const Text('Job Details'),
+                 foregroundColor: Colors.deepOrange,
+                  elevation: 0.0,
+                  backgroundColor:  Color(0xFFF2F3F5),
+                  title: Text('Job Details', style:  TextStyle(color: Colors.deepOrange),),
+                  centerTitle: true,
                 ),
-                body: Column(
+                body: SingleChildScrollView(
+                child: Column(
                   children: [
                     Container(
                       child: Column(
                         children: [
+                          SizedBox(height: 25,),
                           Center(
                             child: Container(
                               margin: const EdgeInsets.all(10),
@@ -185,6 +191,9 @@ class JobDetails extends StatelessWidget {
                             ),
                           ),
                           ),
+                          SizedBox(
+                            height: 25,
+                          ),
                           BlocConsumer<ApplyCubit, ApplyState>(
                             listener: (context, state) {},
                             buildWhen: (_, __) {
@@ -195,27 +204,49 @@ class JobDetails extends StatelessWidget {
                               return state.map(
                                   initial: (_) {
                                     return ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.deepOrange,
+                                            fixedSize: const Size(200, 50),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(50))),
+
                                         onPressed: () async {
                                           await BlocProvider.of<ApplyCubit>(
                                                   context)
                                               .applyJob(jobId: jobData.id);
                                         },
-                                        child: const Text('Apply Now'));
+
+                                        child: const Text('Apply Now',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),));
                                   },
                                   loading: (_) =>
                                       const CircularProgressIndicator(),
                                   success: (_) {
                                     jobData.isApplied = true;
-                                    return const Text("Applied");
+                                    return ElevatedButton.icon(
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.green,
+                                          fixedSize: const Size(200, 50),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(50))),
+                                      onPressed: () {},
+                                      label: const Text('Applied'),
+                                      icon: const Icon(Icons.check_outlined),
+                                    );
                                   },
                                   error: (error) => Text(error.toString()));
                             },
+                          ),
+                          SizedBox(
+                            height: 30,
                           ),
                         ],
                       ),
                     )
                   ],
-                ));
+                )));
           },
         ));
   }

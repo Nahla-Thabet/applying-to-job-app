@@ -8,6 +8,7 @@ import 'package:mega_trust_project/features/Auth/presentation/bloc/register/regi
 class RegisterCubit extends Cubit <RegisterState>{
   RegisterCubit(this._register) : super(RegisterState.initial());
   final Register _register;
+
   static RegisterCubit get(context)=>BlocProvider.of(context) ;
 
   Future<void> register({

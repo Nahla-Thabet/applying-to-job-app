@@ -18,7 +18,8 @@ class JobsListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F3F5),
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+        elevation: 0.0,
+        backgroundColor:  Color(0xFFF2F3F5),
         actions: [
           BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
@@ -33,9 +34,9 @@ class JobsListScreen extends StatelessWidget {
                   onPressed: () {
                     context.read<AuthCubit>().logout();
                   },
-                  icon: const Icon(Icons.logout)))
+                  icon: const Icon(Icons.logout, color: Colors.deepOrange,)))
         ],
-        title: const Center(child: Text("Jobs App")),
+
       ),
       body: SingleChildScrollView(
       child:Column(children:  [

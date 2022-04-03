@@ -8,6 +8,7 @@ import '../../../../core/const/icons.dart';
 import '../../../../../di/injectable.dart';
 import '../bloc/login/login_cubit.dart';
 import '../bloc/login/login_states.dart';
+import '../widgets/curved_widget.dart';
 
 
 
@@ -31,8 +32,9 @@ class LoginScreen extends StatelessWidget {
                   initial: (initial) {},
                   loading: (_) {},
                   success: (_) {
+                    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) =>
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => JobsListScreen()));
+                        MaterialPageRoute(builder: (context) => JobsListScreen())));
                   },
                   error: (error) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -42,31 +44,42 @@ class LoginScreen extends StatelessWidget {
             child: Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
-                backgroundColor: Colors.white,
+
                 elevation: 0,
               ),
-              body: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Form(
+              body:Stack (
+              children:[
+              Column(
+                  children: [
+                        CurvedWidget(
+                          child: Container(
+                            // child: Image.asset('job image.jpg'),
+                            width: double.infinity,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              color:  Colors.deepOrange,
+                            ),
+                          ),
+                        ),
+                     Text(
+                      'Login',
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange,
+                      ),),
+
+
+                    SingleChildScrollView(
+                       // scrollDirection: Axis.vertical,
+                     child: Container(
+                       margin: EdgeInsets.all(10),
+                     child :Form(
                       key: _formKey,
                       child: Column(
                         children: [
-                          const Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
 
                           const SizedBox(
-                            height: 25,
+                            height: 10,
                           ),
                           defaultFormField(
                             initValue:"nahla@gmail.com",
@@ -114,7 +127,10 @@ class LoginScreen extends StatelessWidget {
                             height: 15,
                           ),
                           TextButton(onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterScreen())),
-                              child: Text('Register Here')),
+                              child: Text('Don\'t have an account? Rigister',
+                              style: TextStyle(fontSize: 16),
+
+                              )),
                           BlocBuilder<LoginCubit, LoginState>(
                               builder: (BuildContext context, state) {
                             return state.maybeMap(
@@ -127,11 +143,15 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                     ),
+                     ),
+
+          ]
                   ),
-                ),
-              ),
+          ]
             ),
-          );
+          )
+                );
         }));
   }
 }

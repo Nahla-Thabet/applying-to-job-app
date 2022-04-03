@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mega_trust_project/features/list_of_jobs/domain/entities/job_entities.dart';
-import 'package:mega_trust_project/features/list_of_jobs/presentation/bloc/apply_bloc/apply_cubit.dart';
-import 'package:mega_trust_project/features/list_of_jobs/presentation/bloc/apply_bloc/apply_states.dart';
+
 import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/job_details_screen.dart';
 
 class JobListBuilder extends StatelessWidget {
@@ -30,7 +28,11 @@ class JobListBuilder extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
-                Row(
+                  GestureDetector(
+                  onDoubleTap: (){
+            Navigator.push(context,MaterialPageRoute(builder: (context)=> JobDetails(jobData: job)));
+            },
+              child: Row(
                   children: [
                     Container(
                       margin: const EdgeInsets.all(10),
@@ -46,34 +48,26 @@ class JobListBuilder extends StatelessWidget {
                         radius: 8,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 20,
                     ),
                     Text(
-                      'We are looking for a  ${job.title.toString()} '
-                      ' to retouch \n our product',
+                      'We are looking for  a  ${job.title.toString()} \n '
+                          ' to retouch  our product',
                       textAlign: TextAlign.justify,
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
                       ),
                     ),
-                  ],
-                ),
-                Container(
-                  height: 40,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    color:Color(0xFFF2F3F5) ,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+      ]
+                    ),
 
-                  child: TextButton(onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=> JobDetails(jobData: job)));
-                  }, child: Text('Open')),
+
                 ),
+
                 SizedBox(height: 15,),
                 Row(
 
@@ -131,36 +125,12 @@ class JobListBuilder extends StatelessWidget {
 
 
 
-                //               BlocConsumer<ApplyCubit, ApplyState>(
-                //                 listener: (context, state) {},
-                //                 buildWhen: (_, __) {
-                //                   return context.read<ApplyCubit>().jobId == job.id;
-                //                 },
-                //                 builder: (context, state) {
-                //
-                //                   return state.map(
-                //                       initial: (_) {
-                //                         return TextButton(
-                //                             onPressed: () async {
-                //                               await BlocProvider.of<ApplyCubit>(context)
-                //                                   .applyJob(jobId: job.id);
-                //                             },
-                //                             child: const Text('Apply Now'));
-                //                       },
-                //                       loading: (_) => const CircularProgressIndicator(),
-                //                       success: (_) {
-                //                         job.isApplied = true;
-                //                         return const Text("Applied");
-                //                       },
-                //                       error: (error) => Text(error.toString()));
-                //                 },
-                //               ),
-                //             ],
-                //
-                //           ),
-              ]),
+
+              ]
+    ),
             ),
-          ),
+                  )
+
         ],
       ),
     );
