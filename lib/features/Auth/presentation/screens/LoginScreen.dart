@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mega_trust_project/core/assets/icons.dart';
+import 'package:mega_trust_project/core/const/icons.dart';
 import 'package:mega_trust_project/features/Auth/presentation/widgets/widgets.dart';
 import 'package:mega_trust_project/features/Auth/presentation/screens/register.dart';
 import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/jobs_list_screen.dart';
-import '../../../../../core/assets/icons.dart';
+import '../../../../core/const/icons.dart';
 import '../../../../../di/injectable.dart';
 import '../bloc/login/login_cubit.dart';
 import '../bloc/login/login_states.dart';

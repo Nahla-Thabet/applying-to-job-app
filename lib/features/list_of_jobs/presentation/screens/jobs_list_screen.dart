@@ -6,7 +6,7 @@ import 'package:mega_trust_project/features/Auth/presentation/screens/LoginScree
 import 'package:mega_trust_project/features/list_of_jobs/domain/entities/job_entities.dart';
 import 'package:mega_trust_project/features/list_of_jobs/presentation/bloc/job_cubit.dart';
 import 'package:mega_trust_project/features/list_of_jobs/presentation/bloc/job_states.dart';
-import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/job_list_builder.dart';
+import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/job_list_items.dart';
 import '../../../../di/injectable.dart';
 import '../bloc/apply_bloc/apply_cubit.dart';
 
@@ -16,32 +16,97 @@ class JobsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrange,
-          actions: [
-            BlocListener<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  state.maybeWhen(
-                      logout: () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen())),
-                      orElse: () {
-                        print(state.toString());
-                      });
-                },
-                child: IconButton(
-                    onPressed: () {
-                      context.read<AuthCubit>().logout();
-                    },
-                    icon: const Icon(Icons.logout)))
-          ],
-          title: const Center(child: Text("Jobs")),
+      backgroundColor: const Color(0xFFF2F3F5),
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        actions: [
+          BlocListener<AuthCubit, AuthState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                    logout: () => Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen())),
+                    orElse: () {
+                      print(state.toString());
+                    });
+              },
+              child: IconButton(
+                  onPressed: () {
+                    context.read<AuthCubit>().logout();
+                  },
+                  icon: const Icon(Icons.logout)))
+        ],
+        title: const Center(child: Text("Jobs App")),
+      ),
+      body: SingleChildScrollView(
+      child:Column(children:  [
+        Container(
+          margin: EdgeInsets.all(15),
+          child: Text('Find \n your dream job',
+        style: Theme.of(context).textTheme.headline3?.copyWith(
+          fontFamily: 'SecularOne-Regular',
+          fontWeight: FontWeight.w700,
         ),
-        body: const JobsList());
+          ),
+          ),
+
+
+        Row(
+          children: [
+            Expanded(
+              flex: 5,
+                child: Container(
+                  margin: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                  child: const TextField(
+                    maxLines: 1,
+                    autofocus: false,
+                    style: TextStyle(color: Color(0xff9aafad), fontSize: 20),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      border: InputBorder.none,
+                      hintText: 'Search',
+                    ),
+
+                  ),
+                ),
+                ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.only(right: 10),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.drag_indicator,
+                    color: Colors.deepOrange,
+                    size: 40,
+                  ),
+                ),
+              ),
+            ),
+            
+          ],
+        ),
+
+        JobsList(),
+
+
+      ]),
+      )
+
+    );
+    // const JobsList());
   }
 }
-
 
 class JobsList extends StatelessWidget {
   const JobsList({Key? key}) : super(key: key);
@@ -58,11 +123,13 @@ class JobsList extends StatelessWidget {
 
           if (state is JobSuccessStates) {
             final List<JobData> allJobs = (state).data;
-         //   print(allJobs);
+            //   print(allJobs);
 
             return BlocProvider<ApplyCubit>(
                 create: (context) => getIt<ApplyCubit>(),
+
                 child: ListView.builder(
+                  shrinkWrap: true,
                     itemCount: allJobs.length,
                     itemBuilder: (BuildContext context, index) {
                       return JobListBuilder(job: allJobs[index]);
@@ -73,7 +140,7 @@ class JobsList extends StatelessWidget {
             print("state is builder : $state");
 
             return const Center(
-              child:  const CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         });

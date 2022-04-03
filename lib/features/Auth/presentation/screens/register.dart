@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mega_trust_project/core/assets/icons.dart';
+import 'package:mega_trust_project/core/const/icons.dart';
 import 'package:mega_trust_project/features/Auth/presentation/bloc/register/register_cubit.dart';
 import 'package:mega_trust_project/features/Auth/presentation/screens/LoginScreen.dart';
 import 'package:mega_trust_project/features/Auth/presentation/widgets/widgets.dart';
 import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/jobs_list_screen.dart';
-import '../../../../core/assets/icons.dart';
+import '../../../../core/const/icons.dart';
 import '../../../../di/injectable.dart';
 import '../bloc/register/register_states.dart';
 
@@ -137,7 +137,7 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           TextButton(onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen())),
-                              child: Text('Already have an account? Login')),
+                              child: const Text('Already have an account? Login')),
                           BlocBuilder<RegisterCubit, RegisterState>(
                               builder: (BuildContext context, state) {
                             return state.maybeMap(
