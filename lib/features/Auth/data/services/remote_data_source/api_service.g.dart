@@ -10,7 +10,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://laravel-job-api.herokuapp.com/api';
+    baseUrl ??= 'https://jobs-proj.herokuapp.com/api';
   }
 
   final Dio _dio;

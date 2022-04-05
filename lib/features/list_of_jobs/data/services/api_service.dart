@@ -1,9 +1,13 @@
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mega_trust_project/core/const/constant.dart';
+import 'package:mega_trust_project/features/list_of_jobs/data/model/apply_data_model.dart';
 import 'package:mega_trust_project/features/list_of_jobs/data/model/job_data_model.dart';
 import 'package:mega_trust_project/features/list_of_jobs/data/model/job_model.dart';
+import 'package:mega_trust_project/features/list_of_jobs/domain/entities/job_entities.dart';
 import 'package:retrofit/http.dart';
 
 part 'api_service.g.dart';
@@ -28,10 +32,16 @@ abstract class ApiService {
 });
 
  @POST ('/appliedJob')
+ @MultiPart()
   Future<String> applyJob({
-   @Query('user_id') required int userId,
-   @Query('job_id') required int jobId,
+   @Part(name: 'user_id') required int userId,
+   @Part(name: 'job_id') required int jobId,
+   @Part(name: 'expected_salary') required int expectedSalary,
+   @Part(name: 'current_salary') required int currentSalary,
+   @Part(name: 'cv') required File file,
    @Header("Authorization") required String token,
+
+
 
  });
 

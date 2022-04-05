@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mega_trust_project/features/list_of_jobs/domain/entities/job_entities.dart';
-
 import 'package:mega_trust_project/features/list_of_jobs/presentation/screens/job_details_screen.dart';
 
 class JobListBuilder extends StatelessWidget {
   final JobData job;
 
-  JobListBuilder({Key? key, required this.job}) : super(key: key);
+  JobListBuilder({Key? key, required this.job, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     DateTime currentTime = DateTime.parse(job.publishDate.toString());
 
     return SingleChildScrollView(
@@ -30,7 +30,7 @@ class JobListBuilder extends StatelessWidget {
               child: Column(children: [
                   GestureDetector(
                   onDoubleTap: (){
-            Navigator.push(context,MaterialPageRoute(builder: (context)=> JobDetails(jobData: job)));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=> JobDetails(jobData: job,  )));
             },
               child: Row(
                   children: [

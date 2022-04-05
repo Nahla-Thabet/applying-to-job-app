@@ -21,8 +21,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = "nahla@gmail.com";
-    passwordController.text = "123456";
+    // emailController.text = "nahla@gmail.com";
+    // passwordController.text = "123456";
     return BlocProvider(
         create: (BuildContext context) => getIt<LoginCubit>(),
         child: Builder(builder: (BuildContext context) {
@@ -47,8 +47,8 @@ class LoginScreen extends StatelessWidget {
 
                 elevation: 0,
               ),
-              body:Stack (
-              children:[
+              body:SingleChildScrollView (
+              child:
               Column(
                   children: [
                         CurvedWidget(
@@ -82,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                             height: 10,
                           ),
                           defaultFormField(
-                            initValue:"nahla@gmail.com",
+                            // initValue:"nahla@gmail.com",
                               controller: emailController,
                               keyboardType: TextInputType.text,
                               validate: (String? value) {
@@ -97,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
-                            initValue: "123456",
+                            // initValue: "123456",
                               controller: passwordController,
                               keyboardType: TextInputType.text,
                               validate: (String? value) {
@@ -117,7 +117,6 @@ class LoginScreen extends StatelessWidget {
                                 if (_formKey.currentState!.validate()) {
                                   BlocProvider.of<LoginCubit>(context)
                                       .login(
-
                                           password: passwordController.text,
                                           email: emailController.text.trim());
                                 }
@@ -148,7 +147,7 @@ class LoginScreen extends StatelessWidget {
 
           ]
                   ),
-          ]
+
             ),
           )
                 );

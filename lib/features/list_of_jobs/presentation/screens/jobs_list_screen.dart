@@ -11,7 +11,7 @@ import '../../../../di/injectable.dart';
 import '../bloc/apply_bloc/apply_cubit.dart';
 
 class JobsListScreen extends StatelessWidget {
-  const JobsListScreen({Key? key}) : super(key: key);
+  const JobsListScreen({Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +110,12 @@ class JobsListScreen extends StatelessWidget {
 }
 
 class JobsList extends StatelessWidget {
-  const JobsList({Key? key}) : super(key: key);
+  const JobsList({Key? key, }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    final ApplyData applyData;
     return BlocConsumer<JobCubit, JobStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -124,6 +126,7 @@ class JobsList extends StatelessWidget {
 
           if (state is JobSuccessStates) {
             final List<JobData> allJobs = (state).data;
+
             //   print(allJobs);
 
             return BlocProvider<ApplyCubit>(
@@ -133,7 +136,7 @@ class JobsList extends StatelessWidget {
                   shrinkWrap: true,
                     itemCount: allJobs.length,
                     itemBuilder: (BuildContext context, index) {
-                      return JobListBuilder(job: allJobs[index]);
+                      return JobListBuilder(job: allJobs[index], );
                     }));
 
             //return buildLoadedListWidgets();
