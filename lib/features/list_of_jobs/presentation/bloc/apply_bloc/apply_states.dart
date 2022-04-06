@@ -8,6 +8,7 @@ part 'apply_states.freezed.dart';
  const factory  ApplyState.loading()= _Loading ;
  const factory  ApplyState.success()= _Success ;
  const factory  ApplyState.error()= _Error ;
+ // const factory  ApplyState.loadingAnimation()= _LoadingAnimation ;
 
 }
 

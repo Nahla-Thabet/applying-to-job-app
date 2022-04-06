@@ -39,6 +39,7 @@ class JobsListScreen extends StatelessWidget {
 
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
       child:Column(children:  [
         Container(
           margin: EdgeInsets.all(15),
@@ -134,6 +135,7 @@ class JobsList extends StatelessWidget {
 
                 child: ListView.builder(
                   shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
                     itemCount: allJobs.length,
                     itemBuilder: (BuildContext context, index) {
                       return JobListBuilder(job: allJobs[index], );
